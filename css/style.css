@@ -1,0 +1,68 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: helvetica;
+    background-image: url(/img/background.jpg);
+    background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+p{
+    font-size: larger;
+    color: white;
+}
+
+h2{
+    font-size: larger;
+    color: white;
+}
+
+#start-page-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+    width: 1000px;
+    border:5px solid #781080;
+    background-color: #781080;
+    background: rgba(120,16,128,0.5);
+    border-radius: 15%;
+}
+
+#players-div{
+    border:5px solid #781080;
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+.players-images{
+    height: 200px;
+    width: 200px;
+}
+
+
+
+#game-plan{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+
+#start-button{
+    border-radius: 15%;
+    height: 50px;
+    font-size: 30px;
+    font-weight: 900;
+    margin: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
