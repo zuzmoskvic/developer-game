@@ -10,6 +10,12 @@
     align-items: center;
 }
 
+#game-canvas{
+    width: 600px;
+    height: 600px;
+    border:5px solid #781080;
+}
+
 #body-game{
     margin: 0;
     padding: 0;
