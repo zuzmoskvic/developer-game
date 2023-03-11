@@ -1,4 +1,16 @@
-body{
+#body-index{
+    margin: 0;
+    padding: 0;
+    font-family: helvetica;
+    background-image: url(/img/background.jpg);
+    background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+#body-game{
     margin: 0;
     padding: 0;
     font-family: helvetica;
