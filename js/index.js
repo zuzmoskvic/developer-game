@@ -1,5 +1,6 @@
 // setting up necessary variables  
 let bg;
+let characterSelection;
 let player1;
 let canvas;
 let x =0;
@@ -16,18 +17,27 @@ let youWonSound = new Audio('/sounds/you-won.wav');
 let bugSound = new Audio('/sounds/bug1.wav');
 let mainSong = new Audio('/sounds/password-infinity-123276.mp3');
 
+
+// character button
+let characterButton = document.getElementById("player1");
+characterButton.onclick = function() {
+  characterSelection = "player1";
+  window.open("http://127.0.0.1:5500/game.html?");
+  console.log('HAHAHAHAHHAH');
+};
+
+
+
 // theme song
 mainSong.play();
 mainSong.loop = true;
 mainSong.volume = 0.2;
-
 
 function setup() {
     canvas = createCanvas(1000,601);
     textSize(width/30);
     fill(255,255,255);
     textFont('Andale Mono');
-    //textFont("helvetica");
 }
 
 function preload() {
@@ -105,7 +115,6 @@ function draw() {
   }
 
 // Update score
-
 text(`らㄈØ尺Ɛ  ${score}%`, 50, 80);
 text(`Ťɪ௱Ɛ ${count}`, 820, 80);
 
@@ -128,7 +137,6 @@ if (score===100) {
   youWonSound.play();
   noLoop();
 }
-
 }
 
 class Bug {
@@ -201,6 +209,34 @@ function keyPressed() {
         y += 40;
     }
   }
+
+
+
+
+/*
+// 1st HTML: character choice from previous html 
+let characterSelectButton = document.getElementById("character-select-button");
+characterSelectButton.addEventListener("click", function() {
+let characterChoice = document.getAttributeNode(button>id).value;
+localStorage.setItem("characterChoice", characterChoice);
+});
+
+
+// 2nd HTML: add character image based on choice from 1st html 
+window.onload = function() {
+  let characterChoice = localStorage.getItem("characterChoice");
+
+  if (characterChoice === "player1") {
+    characterImage.src = "img/char1.png";
+  } else if (characterChoice === "player2") {
+    characterImage.src = "img/char2.png";
+  } else if (characterChoice === "player3") {
+    characterImage.src = "img/char3.png";
+  }
+};
+*/
+
+
 
 
     /*
