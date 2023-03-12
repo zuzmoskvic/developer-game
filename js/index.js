@@ -18,6 +18,27 @@ let bugSound = new Audio('/sounds/bug1.wav');
 let mainSong = new Audio('/sounds/password-infinity-123276.mp3');
 
 
+ /*
+
+  document.getElementById("player1").addEventListener("click", function() {
+    localStorage.setItem("chosenCharacter", "Player 1");
+    console.log("HAAHAHAHHA");
+    console.log(chosenCharacter);
+  });
+/*
+  document.getElementById("player2").addEventListener("click", function() {
+    localStorage.setItem("chosenCharacter", "Player 2");
+  });
+
+  document.getElementById("player3").addEventListener("click", function() {
+    localStorage.setItem("chosenCharacter", "Player 3");
+  });
+
+  const chosenPlayer = localStorage.getItem("chosenCharacter");
+  console.log(chosenPlayer);
+*/
+
+/*
 // character button
 let characterButton = document.getElementById("player1");
 characterButton.onclick = function() {
@@ -25,7 +46,7 @@ characterButton.onclick = function() {
   window.open("http://127.0.0.1:5500/game.html?");
   console.log('HAHAHAHAHHAH');
 };
-
+*/
 
 
 // theme song
@@ -214,6 +235,25 @@ function keyPressed() {
 
 
 /*
+<button id="character1">Character 1</button>
+<button id="character2">Character 2</button>
+<button id="character3">Character 3</button>
+
+<script>
+  document.getElementById("character1").addEventListener("click", function() {
+    localStorage.setItem("chosenCharacter", "Character 1");
+  });
+
+  document.getElementById("character2").addEventListener("click", function() {
+    localStorage.setItem("chosenCharacter", "Character 2");
+  });
+
+  document.getElementById("character3").addEventListener("click", function() {
+    localStorage.setItem("chosenCharacter", "Character 3");
+  });
+</script>
+
+
 // 1st HTML: character choice from previous html 
 let characterSelectButton = document.getElementById("character-select-button");
 characterSelectButton.addEventListener("click", function() {
