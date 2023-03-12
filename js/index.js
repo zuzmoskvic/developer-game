@@ -4,13 +4,30 @@ let player1;
 let canvas;
 let x =0;
 let y = 0;
-const obstacles = []
-let obstaclesCount = 0;
+const bugs = []
+let bugsCount = 0;
 const skills = []
 let skillsCount = 0;
+let score = 0;
+let count= 30;
+
+let skillSound = new Audio('/sounds/skill.mp3');
+let youWonSound = new Audio('/sounds/you-won.wav');
+let bugSound = new Audio('/sounds/bug1.wav');
+let mainSong = new Audio('/sounds/password-infinity-123276.mp3');
+
+// theme song
+mainSong.play();
+mainSong.loop = true;
+mainSong.volume = 0.2;
+
 
 function setup() {
     canvas = createCanvas(1000,601);
+    textSize(width/30);
+    fill(255,255,255);
+    textFont('Andale Mono');
+    //textFont("helvetica");
 }
 
 function preload() {
@@ -19,31 +36,30 @@ function preload() {
 }
 
 function draw() {
-    image(bg, 0, 0,);
-    image(player1, 30 + x, 230 +y, 50,150);
+  background(220);
+  image(bg, 0, 0,);
+  image(player1, 30 + x, 450 +y, 50,150);
 
-    
-    
       if (random(1) < 0.01) { //  frequency 
-        let obs = new Obstacle();
-        obstacles.push(obs);
-        obstaclesCount ++;
+        let obs = new Bug();
+        bugs.push(obs);
       }
-      // update and draw existing obstacles
-      for (let i = obstacles.length - 1; i >= 0; i--) {
-        obstacles[i].update();
-        obstacles[i].draw();
-        // remove obstacle if it's off screen
-        if (obstacles[i].offScreen()) {
-          obstacles.splice(i, 1);
+
+      // update and draw existing bugs
+      for (let i = bugs.length - 1; i >= 0; i--) {
+        bugs[i].update();
+        bugs[i].draw();
+        // remove bug if it's off screen
+        if (bugs[i].offScreen()) {
+          bugs.splice(i, 1);
         }
       }
 
-      if (random(1) < 0.01) { //  frequency 
+      if (random(1) < 0.02) { //  frequency 
         let skill = new Skill();
         skills.push(skill);
-        skillsCount ++;
       }
+
       // update and draw existing skills
       for (let i = skills.length - 1; i >= 0; i--) {
         skills[i].update();
@@ -53,35 +69,69 @@ function draw() {
             skills.splice(i, 1);
         }
       }
-      // Check for collisions with obstacles
-  for (let i = obstacles.length - 1; i >= 0; i--) {
-    let obs = obstacles[i];
-    if (collides(player1, 30 + x, 230 + y, obs, obs.x, obs.y)) {
-      obstacles.splice(i, 1);
-      score -= 10;
-    }
-  }
 
-  // Check for collisions with skills
+    // Check for collisions with bugs
+    for (let i = bugs.length - 1; i >= 0; i--) {
+     let obs = bugs[i];
+
+      if (
+        30 + x < obs.x + 50 &&
+        30 + x + 50 > obs.x &&
+        450 + y < obs.y + 50 &&
+        150 + 450 + y > obs.y 
+      ) {
+        score -= 20;
+        bugSound.play();
+        fill("#f91304")
+        bugs.splice(i, 1)
+      }
+    }
+
+
+    // Check for collisions with skills
   for (let i = skills.length - 1; i >= 0; i--) {
     let skill = skills[i];
-    if (collides(player1, 30 + x, 230 + y, skill, skill.x, skill.y)) {
-      skills.splice(i, 1);
-      score += 20;
+    if (
+      30 + x < skill.x + 50 &&
+      30 + x + 50 > skill.x &&
+      450 + y < skill.y + 50 &&
+      150 + 450 + y > skill.y 
+    ) {
+      score += 10;
+      skillSound.play();
+      fill("#17fd9e");
+      skills.splice(i, 1)
     }
   }
+
+// Update score
+
+text(`らㄈØ尺Ɛ  ${score}%`, 50, 80);
+text(`Ťɪ௱Ɛ ${count}`, 820, 80);
+
+if(score<0 || count===0){
+  fill("#f91304");
+  text(`
+  ███ ███ █╬█ ██ ╬╬ ███ █▄█ ██ ███
+  █╬▄ █▄█ █V█ █▄ ╬╬ █╬█ ███ █▄ █▄╬
+  █▄█ █╬█ █╬█ █▄ ╬╬ █▄█ ╬█╬ █▄ █╬█`, 130, 220);
+  //screenshot of canvas: saveCanvas(canvas, 'myCanvas', 'jpg');
+  noLoop();
+}
+if (score===100) {
+  fill("#a804fc");
+  text(`
+  █╬█ ███ █╬█ ╬╬ █╬╬╬█ ███ █╬╬█ ╬╬<3
+  █▄█ █╬█ █╬█ ╬╬ █╬█╬█ █╬█ ██▄█ ╬╬<3
+  ╬█╬ █▄█ ███ ╬╬ █▄█▄█ █▄█ █╬██ ╬╬<3`, 130, 220);
+  //screenshot of canvas: saveCanvas(canvas, 'myCanvas', 'jpg');
+  youWonSound.play();
+  noLoop();
 }
 
-function collides(obj1, x1, y1, obj2, x2, y2) {
-    return (
-      x1 + obj1.width > x2 &&
-      x1 < x2 + obj2.width &&
-      y1 + obj1.height > y2 &&
-      y1 < y2 + obj2.height
-    );
-  }
+}
 
-class Obstacle {
+class Bug {
   constructor() {
     this.x = random(width); // random x position within canvas width
     this.y = -50; // start off screen
@@ -98,7 +148,7 @@ class Obstacle {
   }
 
   offScreen() {
-    return this.y > height; // check if obstacle is off bottom of screen
+    return this.y > height; // check if bug is off bottom of screen
   }
 }
 
@@ -106,85 +156,56 @@ class Skill {
     constructor() {
       this.x = random(width); // random x position within canvas width
       this.y = -50; // start off screen
-      this.speed = random(3, 5); // random falling speed
+      this.speed = random(1, 3); // random falling speed
       this.img = loadImage('img/skill.png'); // load image
     }
-  
     update() {
       this.y += this.speed; // move down screen
     }
-  
     draw() {
       image(this.img, this.x, this.y, 50, 50); // draw image at current position
     }
-  
     offScreen() {
-      return this.y > height; // check if obstacle is off bottom of screen
+      return this.y > height; // check if bug is off bottom of screen
     }
   }
 
-
-/*// setting up obstacles 
-function addObstacles(){
-    obstacles.push({x: random(0, width - 50), y:-50, w:random(20, 80), h:20});
-    obstaclesCount ++;
+  let counter =function(){
+    count=count-1; // countown by 1 every second
+    // when count reaches 0 clear the timer, hide oprah and
+    // finish the game
+      if (count <= 0)
+      {
+        // stop the timer
+         clearInterval(counter);
+         // set game to finished
+         //finished = true;
+         count=0;
+      }
   }
-  const obstaclesIntervalId = setInterval(addObstacles, 2000);
-*/
-
-
-
+  
+  setInterval(counter, 1000);
 
 // keypress function  
 function keyPressed() {
-    if (keyCode === RIGHT_ARROW) {
-        x += 30;   
+    if (keyCode === RIGHT_ARROW && x < 905) {
+        x += 40;   
     }
-    if (keyCode === LEFT_ARROW) {
-        x -= 30;
+    if (keyCode === LEFT_ARROW && x > -5 ) {
+        x -= 40;
     }
-    if (keyCode === UP_ARROW) {
-        y -= 30;   
+    if (keyCode === UP_ARROW && y > -430) {
+        y -= 40;   
     }
-    if (keyCode === DOWN_ARROW) {
-        y += 30;
+    if (keyCode === DOWN_ARROW && y < 0) {
+        y += 40;
     }
-}
+  }
 
 
+    /*
 
-
-  // PARKING LOT 
-    //bg.position(100,100);
-    //player1.size(50,100)
-    //if (frameCount == 300)frameCount = 10
-    //bg.size(1000,601);
-    //if (frameCount == 300)frameCount = 10
-    //image(bg, 0, 0);
-
-
-
-        //obstacles, collission course & game over 
-    /*obstacles.forEach(function(obstacle){
-        rect(obstacle.x, obstacle.y+=2, obstacle.w, obstacle.h);
-        if(
-      rect1.x < rect2.x + rect2.w &&
-        rect1.x + rect1.w > rect2.x &&
-        rect1.y < rect2.y + rect2.h &&
-        rect1.h + rect1.y > rect2.y
-    
-          obstacle.x < 30 + x + 50 &&
-          obstacle.x + obstacle.w > 30 + x &&
-          obstacle.y <  230 +y + 150 &&
-          obstacle.h + obstacle.y >  230 +y
-        ) {
-          fill(255, 204, 0);
-          text(`Game Over! Score: ${obstaclesCount}`,400, 400);
-          console.log("YES")
-          fill(white);
-          noLoop();
-        } 
-        else {
-          console.log("Nope")
-        }
-      });*/
+    /*rect1.x < rect2.x + rect2.w &&
+    rect1.x + rect1.w > rect2.x &&
+    rect1.y < rect2.y + rect2.h &&
+    rect1.h + rect1.y > rect2.y*/
