@@ -12,9 +12,10 @@ let skillsCount = 0;
 let score = 0;
 let count= 30;
 let fallingSpeed=3;
-let scoreGoal=100;
+let scoreGoal=10;
 let bugFrequency=0.02;
 
+// sounds 
 let skillSound = new Audio('/sounds/skill.mp3');
 let youWonSound = new Audio('/sounds/you-won.wav');
 let bugSound = new Audio('/sounds/bug1.wav');
@@ -39,6 +40,7 @@ function preload() {
 }
 
 function draw() {
+
   background(220);
   image(bg, 0, 0,);
   image(player1, 30 + x, 450 +y, 50,150);
@@ -90,7 +92,6 @@ function draw() {
       }
     }
 
-
     // Check for collisions with skills
   for (let i = skills.length - 1; i >= 0; i--) {
     let skill = skills[i];
@@ -117,23 +118,23 @@ if(score<0 || count===0){
   ███ ███ █╬█ ██ ╬╬ ███ █▄█ ██ ███
   █╬▄ █▄█ █V█ █▄ ╬╬ █╬█ ███ █▄ █▄╬
   █▄█ █╬█ █╬█ █▄ ╬╬ █▄█ ╬█╬ █▄ █╬█`, 130, 220);
-  //screenshot of canvas: saveCanvas(canvas, 'myCanvas', 'jpg');
   noLoop();
 }
-if (score===scoreGoal) {
 
+if (score===scoreGoal) {
+  fill("#a804fc");  
+  text(`
+  █┼┼█ ███ █┼█ ███ ┼┼ █┼┼ ███ █▄█ ███ █┼┼
+  ██▄█ █▄┼ ┼█┼ ┼█┼ ┼┼ █┼┼ █▄┼ ███ █▄┼ █┼┼
+  █┼██ █▄▄ █┼█ ┼█┼ ┼┼ █▄█ █▄▄ ┼█┼ █▄▄ █▄█`, 80, 220);
   youWonSound.play();
   fallingSpeed +=2;
   count=30;
   scoreGoal+=100;
   bugFrequency+=0.01;
-  fill("#a804fc");  
-  text(`
-    █╬█ ███ █╬█ ╬╬ █╬╬╬█ ███ █╬╬█ ╬╬<3
-    █▄█ █╬█ █╬█ ╬╬ █╬█╬█ █╬█ ██▄█ ╬╬<3
-    ╬█╬ █▄█ ███ ╬╬ █▄█▄█ █▄█ █╬██ ╬╬<3`, 130, 220);
-   
-  //screenshot of canvas: saveCanvas(canvas, 'myCanvas', 'jpg');
+  noLoop();
+  setTimeout(loop,2000);
+ //screenshot of canvas: saveCanvas(canvas, 'myCanvas', 'jpg');
 }
 }
 
@@ -175,14 +176,11 @@ class Skill {
 
   let counter =function(){
     count=count-1; // countown by 1 every second
-    // when count reaches 0 clear the timer, hide oprah and
     // finish the game
       if (count <= 0)
       {
         // stop the timer
          clearInterval(counter);
-         // set game to finished
-         //finished = true;
          count=0;
       }
   }
@@ -205,90 +203,3 @@ function keyPressed() {
     }
   }
 
-  /*
-// mute page 
-let mutebutton = document.getElementById("soundoff-button");   
-mutebutton.onclick = function mutePage() {
-    console.log("HI");
-    
-    document.querySelectorAll("audio").forEach( elem => muteMe(elem) );
-}*/
-
-
-/*
-<button id="character1">Character 1</button>
-<button id="character2">Character 2</button>
-<button id="character3">Character 3</button>
-
-<script>
-  document.getElementById("character1").addEventListener("click", function() {
-    localStorage.setItem("chosenCharacter", "Character 1");
-  });
-
-  document.getElementById("character2").addEventListener("click", function() {
-    localStorage.setItem("chosenCharacter", "Character 2");
-  });
-
-  document.getElementById("character3").addEventListener("click", function() {
-    localStorage.setItem("chosenCharacter", "Character 3");
-  });
-</script>
-
-
-// 1st HTML: character choice from previous html 
-let characterSelectButton = document.getElementById("character-select-button");
-characterSelectButton.addEventListener("click", function() {
-let characterChoice = document.getAttributeNode(button>id).value;
-localStorage.setItem("characterChoice", characterChoice);
-});
-
-
-// 2nd HTML: add character image based on choice from 1st html 
-window.onload = function() {
-  let characterChoice = localStorage.getItem("characterChoice");
-
-  if (characterChoice === "player1") {
-    characterImage.src = "img/char1.png";
-  } else if (characterChoice === "player2") {
-    characterImage.src = "img/char2.png";
-  } else if (characterChoice === "player3") {
-    characterImage.src = "img/char3.png";
-  }
-};
-*/
-
-/* TRYING TO SET UP CHARACTER SELECTOR
-
-  document.getElementById("player1").addEventListener("click", function() {
-    //localStorage.setItem("chosenCharacter", "Player 1");
-    console.log("HAAHAHAHHA");
-    //console.log(chosenCharacter);
-  });
-
-  document.getElementById("player2").addEventListener("click", function() {
-    localStorage.setItem("chosenCharacter", "Player 2");
-  });
-
-  document.getElementById("player3").addEventListener("click", function() {
-    localStorage.setItem("chosenCharacter", "Player 3");
-  });
-
-  const chosenPlayer = localStorage.getItem("chosenCharacter");
-  console.log(chosenPlayer);
-
-// character button
-let characterButton = document.getElementById("player1");
-characterButton.onclick = function() {
-  characterSelection = "player1";
-  window.open("http://127.0.0.1:5500/game.html?");
-  console.log('HAHAHAHAHHAH');
-};
-*/
-
-
-    /*
-
-    /*rect1.x < rect2.x + rect2.w &&
-    rect1.x + rect1.w > rect2.x &&
-    rect1.y < rect2.y + rect2.h &&
-    rect1.h + rect1.y > rect2.y*/
