@@ -1,19 +1,5 @@
 // setting up necessary variables  
-let bg;
-let characterSelection;
-let player1;
-let canvas;
-let x =0;
-let y = 0;
-const bugs = []
-let bugsCount = 0;
-const skills = []
-let skillsCount = 0;
-let score = 0;
-let count= 30;
-let fallingSpeed=3;
-let scoreGoal=10;
-let bugFrequency=0.02;
+let bg, characterSelection, player, player1, player2, player3, canvas, x = 0, y = 0, bugs = [], bugsCount = 0, skills = [], skillsCount = 0, score = 0, count = 30, fallingSpeed = 3, scoreGoal = 100, bugFrequency = 0.02;
 
 // sounds 
 let skillSound = new Audio('/sounds/skill.mp3');
@@ -27,23 +13,74 @@ mainSong.play();
 mainSong.loop = true;
 mainSong.volume = 0.2;
 
+// select the element by ID
+const introScreen = document.getElementById("start-page-div");
+
+// hide the introScreen
+//introScreen.style.display = "none";
+
+// set up of the 3 character selection buttons 
+const player1btn = document.getElementById("player1");
+player1btn.onclick = function(){
+  player = player1;
+  introScreen.style.display = "none";
+  canvas.show();
+};
+
+const player2btn = document.getElementById("player2");
+player2btn.onclick = function(){
+  player = player2;
+  introScreen.style.display = "none";
+  canvas.show();
+};
+
+const player3btn = document.getElementById("player3");
+player3btn.onclick = function(){
+  player = player3;
+  introScreen.style.display = "none";
+  canvas.show();
+};
+
+
+// setup function 
 function setup() {
     canvas = createCanvas(1000,601);
+    canvas.hide();
+    //canvas.show();
     textSize(width/30);
     fill(255,255,255);
     textFont('Andale Mono');
 }
 
+// preload  function 
 function preload() {
     bg = loadImage("img/bg-black.jpg");
     player1 = loadImage("img/char1.png");
+    player2 = loadImage("img/char2.png");
+    player3 = loadImage("img/char3.png");
 }
 
+// draw function 
 function draw() {
 
   background(220);
   image(bg, 0, 0,);
-  image(player1, 30 + x, 450 +y, 50,150);
+
+
+  if (player === player1) {
+    image(player1, 30 + x, 450 +y, 50,150);
+  }
+
+  if (player === player2) {
+    image(player2, 30 + x, 450 +y, 50,150);
+  }
+
+  if (player === player3) {
+    image(player3, 30 + x, 450 +y, 50,150);
+    
+  }
+
+  
 
       if (random(1) < bugFrequency) { //  frequency 
         let obs = new Bug();
@@ -92,7 +129,7 @@ function draw() {
       }
     }
 
-    // Check for collisions with skills
+// Check for collisions with skills
   for (let i = skills.length - 1; i >= 0; i--) {
     let skill = skills[i];
     if (
@@ -134,7 +171,7 @@ if (score===scoreGoal) {
   bugFrequency+=0.01;
   noLoop();
   setTimeout(loop,2000);
- //screenshot of canvas: saveCanvas(canvas, 'myCanvas', 'jpg');
+//screenshot of canvas: saveCanvas(canvas, 'myCanvas', 'jpg');
 }
 }
 
@@ -202,4 +239,3 @@ function keyPressed() {
         y += 40;
     }
   }
-
