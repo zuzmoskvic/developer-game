@@ -11,42 +11,14 @@ const skills = []
 let skillsCount = 0;
 let score = 0;
 let count= 30;
+let fallingSpeed=3;
+let scoreGoal=100;
+let bugFrequency=0.02;
 
 let skillSound = new Audio('/sounds/skill.mp3');
 let youWonSound = new Audio('/sounds/you-won.wav');
 let bugSound = new Audio('/sounds/bug1.wav');
 let mainSong = new Audio('/sounds/password-infinity-123276.mp3');
-
-
- /*
-
-  document.getElementById("player1").addEventListener("click", function() {
-    localStorage.setItem("chosenCharacter", "Player 1");
-    console.log("HAAHAHAHHA");
-    console.log(chosenCharacter);
-  });
-/*
-  document.getElementById("player2").addEventListener("click", function() {
-    localStorage.setItem("chosenCharacter", "Player 2");
-  });
-
-  document.getElementById("player3").addEventListener("click", function() {
-    localStorage.setItem("chosenCharacter", "Player 3");
-  });
-
-  const chosenPlayer = localStorage.getItem("chosenCharacter");
-  console.log(chosenPlayer);
-*/
-
-/*
-// character button
-let characterButton = document.getElementById("player1");
-characterButton.onclick = function() {
-  characterSelection = "player1";
-  window.open("http://127.0.0.1:5500/game.html?");
-  console.log('HAHAHAHAHHAH');
-};
-*/
 
 
 // theme song
@@ -71,14 +43,14 @@ function draw() {
   image(bg, 0, 0,);
   image(player1, 30 + x, 450 +y, 50,150);
 
-      if (random(1) < 0.01) { //  frequency 
+      if (random(1) < bugFrequency) { //  frequency 
         let obs = new Bug();
         bugs.push(obs);
       }
 
       // update and draw existing bugs
       for (let i = bugs.length - 1; i >= 0; i--) {
-        bugs[i].update();
+        bugs[i].update(fallingSpeed);
         bugs[i].draw();
         // remove bug if it's off screen
         if (bugs[i].offScreen()) {
@@ -136,7 +108,7 @@ function draw() {
   }
 
 // Update score
-text(`らㄈØ尺Ɛ  ${score}%`, 50, 80);
+text(`らㄈØ尺Ɛ  ${score} pnts`, 50, 80);
 text(`Ťɪ௱Ɛ ${count}`, 820, 80);
 
 if(score<0 || count===0){
@@ -148,15 +120,20 @@ if(score<0 || count===0){
   //screenshot of canvas: saveCanvas(canvas, 'myCanvas', 'jpg');
   noLoop();
 }
-if (score===100) {
-  fill("#a804fc");
-  text(`
-  █╬█ ███ █╬█ ╬╬ █╬╬╬█ ███ █╬╬█ ╬╬<3
-  █▄█ █╬█ █╬█ ╬╬ █╬█╬█ █╬█ ██▄█ ╬╬<3
-  ╬█╬ █▄█ ███ ╬╬ █▄█▄█ █▄█ █╬██ ╬╬<3`, 130, 220);
-  //screenshot of canvas: saveCanvas(canvas, 'myCanvas', 'jpg');
+if (score===scoreGoal) {
+
   youWonSound.play();
-  noLoop();
+  fallingSpeed +=2;
+  count=30;
+  scoreGoal+=100;
+  bugFrequency+=0.01;
+  fill("#a804fc");  
+  text(`
+    █╬█ ███ █╬█ ╬╬ █╬╬╬█ ███ █╬╬█ ╬╬<3
+    █▄█ █╬█ █╬█ ╬╬ █╬█╬█ █╬█ ██▄█ ╬╬<3
+    ╬█╬ █▄█ ███ ╬╬ █▄█▄█ █▄█ █╬██ ╬╬<3`, 130, 220);
+   
+  //screenshot of canvas: saveCanvas(canvas, 'myCanvas', 'jpg');
 }
 }
 
@@ -167,15 +144,12 @@ class Bug {
     this.speed = random(3, 5); // random falling speed
     this.img = loadImage('img/bug.png'); // load image
   }
-
   update() {
     this.y += this.speed; // move down screen
   }
-
   draw() {
     image(this.img, this.x, this.y, 50, 50); // draw image at current position
   }
-
   offScreen() {
     return this.y > height; // check if bug is off bottom of screen
   }
@@ -231,7 +205,14 @@ function keyPressed() {
     }
   }
 
-
+  /*
+// mute page 
+let mutebutton = document.getElementById("soundoff-button");   
+mutebutton.onclick = function mutePage() {
+    console.log("HI");
+    
+    document.querySelectorAll("audio").forEach( elem => muteMe(elem) );
+}*/
 
 
 /*
@@ -276,7 +257,33 @@ window.onload = function() {
 };
 */
 
+/* TRYING TO SET UP CHARACTER SELECTOR
 
+  document.getElementById("player1").addEventListener("click", function() {
+    //localStorage.setItem("chosenCharacter", "Player 1");
+    console.log("HAAHAHAHHA");
+    //console.log(chosenCharacter);
+  });
+
+  document.getElementById("player2").addEventListener("click", function() {
+    localStorage.setItem("chosenCharacter", "Player 2");
+  });
+
+  document.getElementById("player3").addEventListener("click", function() {
+    localStorage.setItem("chosenCharacter", "Player 3");
+  });
+
+  const chosenPlayer = localStorage.getItem("chosenCharacter");
+  console.log(chosenPlayer);
+
+// character button
+let characterButton = document.getElementById("player1");
+characterButton.onclick = function() {
+  characterSelection = "player1";
+  window.open("http://127.0.0.1:5500/game.html?");
+  console.log('HAHAHAHAHHAH');
+};
+*/
 
 
     /*
