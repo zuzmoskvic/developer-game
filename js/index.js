@@ -34,6 +34,9 @@ muteButton.onclick = function(){
 const introScreen = document.getElementById("start-page-div");
 const screenshottext= document.getElementById("screenshot-text");
 screenshottext.style.display="none";
+const buttons = document.getElementById("buttons-div");
+buttons.style.display="none";
+
 
 
 // set up of the 3 character selection buttons 
@@ -41,6 +44,7 @@ const player1btn = document.getElementById("player1");
 player1btn.onclick = function(){
   player = player1;
   introScreen.style.display = "none";
+  buttons.style.display="flex";
   screenshottext.style.display="block";
   canvas.show();
   loop();
@@ -54,6 +58,7 @@ const player2btn = document.getElementById("player2");
 player2btn.onclick = function(){
   player = player2;
   introScreen.style.display = "none";
+  buttons.style.display="flex";
   screenshottext.style.display="block";
   canvas.show();
   loop();
@@ -67,6 +72,7 @@ const player3btn = document.getElementById("player3");
 player3btn.onclick = function(){
   player = player3;
   introScreen.style.display = "none";
+  buttons.style.display="flex";
   screenshottext.style.display="block";
   canvas.show();
   loop();
@@ -82,6 +88,7 @@ newGame.onclick = function(){
   if (player === undefined) 
     {player=player1} 
   introScreen.style.display = "none";
+  buttons.style.display="flex";
   screenshottext.style.display="block";
   canvas.show();
   score=0;
