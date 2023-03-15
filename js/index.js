@@ -6,6 +6,7 @@ let skillSound = new Audio('/sounds/skill.mp3');
 let youWonSound = new Audio('/sounds/you-won.wav');
 let bugSound = new Audio('/sounds/bug1.wav');
 let mainSong = new Audio('/sounds/password-infinity-123276.mp3');
+let gameOver = new Audio('/sounds/game-over.wav');
 
 
 
@@ -164,6 +165,8 @@ if(score<0 || count===0){
   ███ ███ █╬█ ██ ╬╬ ███ █▄█ ██ ███
   █╬▄ █▄█ █V█ █▄ ╬╬ █╬█ ███ █▄ █▄╬
   █▄█ █╬█ █╬█ █▄ ╬╬ █▄█ ╬█╬ █▄ █╬█`, 130, 220);
+  bugSound.pause();
+  gameOver.play();
   noLoop();
 }
 
