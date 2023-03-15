@@ -30,14 +30,10 @@ muteButton.onclick = function(){
 
 
 
-
-
-
-// select the element by ID
+// intro screen and bottom text set up 
 const introScreen = document.getElementById("start-page-div");
-
-// hide the introScreen
-//introScreen.style.display = "none";
+const screenshottext= document.getElementById("screenshot-text");
+screenshottext.style.display="none";
 
 
 // set up of the 3 character selection buttons 
@@ -45,6 +41,7 @@ const player1btn = document.getElementById("player1");
 player1btn.onclick = function(){
   player = player1;
   introScreen.style.display = "none";
+  screenshottext.style.display="block";
   canvas.show();
   loop();
   // play theme song
@@ -57,6 +54,7 @@ const player2btn = document.getElementById("player2");
 player2btn.onclick = function(){
   player = player2;
   introScreen.style.display = "none";
+  screenshottext.style.display="block";
   canvas.show();
   loop();
   // play theme song
@@ -69,6 +67,7 @@ const player3btn = document.getElementById("player3");
 player3btn.onclick = function(){
   player = player3;
   introScreen.style.display = "none";
+  screenshottext.style.display="block";
   canvas.show();
   loop();
   // play theme song
@@ -83,6 +82,7 @@ newGame.onclick = function(){
   if (player === undefined) 
     {player=player1} 
   introScreen.style.display = "none";
+  screenshottext.style.display="block";
   canvas.show();
   score=0;
   count=30;
@@ -93,10 +93,11 @@ newGame.onclick = function(){
   x = 0;
   y = 0;
   // bugs 
-  bugs = [], 
-  bugsCount = 0, 
-  skills = [], 
-  skillsCount = 0
+  bugs = [];
+  bugsCount = 0;
+  skills = [];
+  skillsCount = 0;
+  bugFrequency = 0.02;
   // text
   loop();
 }
@@ -185,8 +186,8 @@ function draw() {
       ) {
         score -= 20;
         bugSound.play();
-        fill("#f91304")
-        bugs.splice(i, 1)
+        fill("#f91304");
+        bugs.splice(i, 1);
       }
     }
 
@@ -210,7 +211,7 @@ function draw() {
 text(`らㄈØ尺Ɛ  ${score} pnts`, 50, 80);
 text(`Ťɪ௱Ɛ ${count}`, 820, 80);
 
-if(score<0 || count===0){
+if(score<-1 || count===0){
   fill("#f91304");
   text(`
   ███ ███ █╬█ ██ ╬╬ ███ █▄█ ██ ███
@@ -246,7 +247,9 @@ class Bug {
     this.img = loadImage('img/bug.png'); // load image
   }
   update() {
-    this.y += this.speed; // move down screen
+    this.x += random(-2, 2);
+    this.y += random(-2, 2) + this.speed;
+    
   }
   draw() {
     image(this.img, this.x, this.y, 50, 50); // draw image at current position
@@ -302,3 +305,11 @@ function keyPressed() {
         y += 40;
     }
   }
+
+
+  
+  // screenshot
+const takeScreenshot = document.getElementById("screenshot");
+takeScreenshot.onclick = function(){
+  saveCanvas(canvas, 'myHighScore', 'jpg');
+}

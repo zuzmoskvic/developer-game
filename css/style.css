@@ -135,3 +135,30 @@ h1 {
 .arrows{
     height: 14px;
 }
+
+#screenshot-text{
+    display: block;
+    font-size: smaller;
+}
+
+#screenshot{
+    text-decoration: underline;
+}
+
+#screenshot:hover {
+    background-color: #781080;
+  }
+
+a{
+    text-decoration: underline;
+    color: white;
+}
+
+a:hover {
+    background-color: #781080;
+  }
+
+a:visited {
+    color: white;
+    background-color:  #781080;
+  }
