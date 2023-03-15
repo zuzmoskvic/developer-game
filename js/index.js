@@ -8,10 +8,7 @@ let bugSound = new Audio('/sounds/bug1.wav');
 let mainSong = new Audio('/sounds/password-infinity-123276.mp3');
 
 
-// theme song
-mainSong.play();
-mainSong.loop = true;
-mainSong.volume = 0.2;
+
 
 // select the element by ID
 const introScreen = document.getElementById("start-page-div");
@@ -25,6 +22,10 @@ player1btn.onclick = function(){
   player = player1;
   introScreen.style.display = "none";
   canvas.show();
+  // play theme song
+  mainSong.play();
+  mainSong.loop = true;
+  mainSong.volume = 0.2;
 };
 
 const player2btn = document.getElementById("player2");
@@ -32,6 +33,10 @@ player2btn.onclick = function(){
   player = player2;
   introScreen.style.display = "none";
   canvas.show();
+    // play theme song
+    mainSong.play();
+    mainSong.loop = true;
+    mainSong.volume = 0.2;
 };
 
 const player3btn = document.getElementById("player3");
@@ -39,6 +44,10 @@ player3btn.onclick = function(){
   player = player3;
   introScreen.style.display = "none";
   canvas.show();
+    // play theme song
+    mainSong.play();
+    mainSong.loop = true;
+    mainSong.volume = 0.2;
 };
 
 
