@@ -8,6 +8,28 @@ let bugSound = new Audio('/sounds/bug1.wav');
 let mainSong = new Audio('/sounds/password-infinity-123276.mp3');
 let gameOver = new Audio('/sounds/game-over.wav');
 
+// mute button
+const muteButton = document.getElementById("soundoff-button");
+muteButton.onclick = function(){
+  if (mainSong.volume === 0) {
+    mainSong.volume = 0.2;
+    skillSound.volume = 1;
+    youWonSound.volume = 1;
+    bugSound.volume = 1;
+    gameOver.volume = 1;
+    muteButton.innerHTML = "Mute";
+  } else {
+    mainSong.volume = 0;
+    skillSound.volume = 0;
+    youWonSound.volume = 0;
+    bugSound.volume = 0;
+    gameOver.volume = 0;
+    muteButton.innerHTML = "Unmute";
+  }
+}
+
+
+
 
 
 
@@ -17,12 +39,14 @@ const introScreen = document.getElementById("start-page-div");
 // hide the introScreen
 //introScreen.style.display = "none";
 
+
 // set up of the 3 character selection buttons 
 const player1btn = document.getElementById("player1");
 player1btn.onclick = function(){
   player = player1;
   introScreen.style.display = "none";
   canvas.show();
+  loop();
   // play theme song
   mainSong.play();
   mainSong.loop = true;
@@ -34,10 +58,11 @@ player2btn.onclick = function(){
   player = player2;
   introScreen.style.display = "none";
   canvas.show();
-    // play theme song
-    mainSong.play();
-    mainSong.loop = true;
-    mainSong.volume = 0.2;
+  loop();
+  // play theme song
+  mainSong.play();
+  mainSong.loop = true;
+  mainSong.volume = 0.2;
 };
 
 const player3btn = document.getElementById("player3");
@@ -45,11 +70,36 @@ player3btn.onclick = function(){
   player = player3;
   introScreen.style.display = "none";
   canvas.show();
-    // play theme song
-    mainSong.play();
-    mainSong.loop = true;
-    mainSong.volume = 0.2;
+  loop();
+  // play theme song
+  mainSong.play();
+  mainSong.loop = true;
+  mainSong.volume = 0.2;
 };
+
+// new game button 
+const newGame = document.getElementById("new-game-button");
+newGame.onclick = function(){
+  if (player === undefined) 
+    {player=player1} 
+  introScreen.style.display = "none";
+  canvas.show();
+  score=0;
+  count=30;
+  scoreGoal = 100;
+  fallingSpeed = 3;
+  fill(255,255,255);
+  // char position
+  x = 0;
+  y = 0;
+  // bugs 
+  bugs = [], 
+  bugsCount = 0, 
+  skills = [], 
+  skillsCount = 0
+  // text
+  loop();
+}
 
 
 // setup function 
@@ -60,6 +110,7 @@ function setup() {
     textSize(width/30);
     fill(255,255,255);
     textFont('Andale Mono');
+    noLoop();
 }
 
 // preload  function 
@@ -67,7 +118,7 @@ function preload() {
     bg = loadImage("img/bg-black.jpg");
     player1 = loadImage("img/char1.png");
     player2 = loadImage("img/char2.png");
-    player3 = loadImage("img/char3.png");
+    player3 = loadImage("img/char5.png");
 }
 
 // draw function 
