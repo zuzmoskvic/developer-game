@@ -28,6 +28,18 @@ muteButton.onclick = function(){
   }
 }
 
+// set up the counter 
+let counter =function(){
+  count=count-1; // countown by 1 every second
+  // finish the game
+    if (count <= 0)
+    {
+      // stop the timer
+       clearInterval(counter);
+       count=0;
+    }
+}
+
 
 
 // intro screen and bottom text set up 
@@ -48,6 +60,7 @@ player1btn.onclick = function(){
   screenshottext.style.display="block";
   canvas.show();
   loop();
+  setInterval(counter, 1000);
   // play theme song
   mainSong.play();
   mainSong.loop = true;
@@ -62,6 +75,7 @@ player2btn.onclick = function(){
   screenshottext.style.display="block";
   canvas.show();
   loop();
+  setInterval(counter, 1000);
   // play theme song
   mainSong.play();
   mainSong.loop = true;
@@ -76,6 +90,7 @@ player3btn.onclick = function(){
   screenshottext.style.display="block";
   canvas.show();
   loop();
+  setInterval(counter, 1000);
   // play theme song
   mainSong.play();
   mainSong.loop = true;
@@ -107,6 +122,7 @@ newGame.onclick = function(){
   bugFrequency = 0.02;
   // text
   loop();
+  setInterval(counter, 1000);
 }
 
 
@@ -284,18 +300,8 @@ class Skill {
     }
   }
 
-  let counter =function(){
-    count=count-1; // countown by 1 every second
-    // finish the game
-      if (count <= 0)
-      {
-        // stop the timer
-         clearInterval(counter);
-         count=0;
-      }
-  }
-  
-  setInterval(counter, 1000);
+
+
 
 // keypress function  
 function keyPressed() {
