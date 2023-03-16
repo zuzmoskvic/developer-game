@@ -58,6 +58,7 @@ player1btn.onclick = function(){
   screenshottext.style.display="block";
   canvas.show();
   loop();
+  
   counterInterval = setInterval(counter, 1000);
   // play theme song
   mainSong.play();
@@ -73,6 +74,7 @@ player2btn.onclick = function(){
   screenshottext.style.display="block";
   canvas.show();
   loop();
+  
   counterInterval = setInterval(counter, 1000);
   // play theme song
   mainSong.play();
@@ -88,6 +90,7 @@ player3btn.onclick = function(){
   screenshottext.style.display="block";
   canvas.show();
   loop();
+  
   counterInterval = setInterval(counter, 1000);
   // play theme song
   mainSong.play();
@@ -120,7 +123,8 @@ newGame.onclick = function(){
   bugFrequency = 0.02;
   // text
   loop();
-  counterInterval = setInterval(counter, 1000);
+  
+  //counterInterval = setInterval(counter, 1000);
 }
 
 
