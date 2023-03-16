@@ -29,17 +29,15 @@ muteButton.onclick = function(){
 }
 
 // set up the counter 
-let counter =function(){
-  count=count-1; // countown by 1 every second
+let counter = function() {
+  count = count - 1; // countdown by 1 every second
   // finish the game
-    if (count <= 0)
-    {
-      // stop the timer
-       clearInterval(counter);
-       count=0;
-    }
-}
-
+  if (count <= 0) {
+    // stop the timer
+    clearInterval(counterInterval);
+    count = 0;
+  }
+};
 
 
 // intro screen and bottom text set up 
@@ -60,7 +58,7 @@ player1btn.onclick = function(){
   screenshottext.style.display="block";
   canvas.show();
   loop();
-  setInterval(counter, 1000);
+  counterInterval = setInterval(counter, 1000);
   // play theme song
   mainSong.play();
   mainSong.loop = true;
@@ -75,7 +73,7 @@ player2btn.onclick = function(){
   screenshottext.style.display="block";
   canvas.show();
   loop();
-  setInterval(counter, 1000);
+  counterInterval = setInterval(counter, 1000);
   // play theme song
   mainSong.play();
   mainSong.loop = true;
@@ -90,7 +88,7 @@ player3btn.onclick = function(){
   screenshottext.style.display="block";
   canvas.show();
   loop();
-  setInterval(counter, 1000);
+  counterInterval = setInterval(counter, 1000);
   // play theme song
   mainSong.play();
   mainSong.loop = true;
@@ -122,7 +120,7 @@ newGame.onclick = function(){
   bugFrequency = 0.02;
   // text
   loop();
-  setInterval(counter, 1000);
+  counterInterval = setInterval(counter, 1000);
 }
 
 
