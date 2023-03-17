@@ -5,8 +5,8 @@ let bg, characterSelection, player, player1, player2, player3, canvas, x = 0, y 
 // sounds 
 let skillSound = new Audio('/sounds/skill.mp3');
 let youWonSound = new Audio('/sounds/you-won.mp3');
-let bugSound = new Audio('/sounds/bug1.mp3');
-let mainSong = new Audio('/sounds/password-infinity-123276.mp3');
+let bugSound = new Audio('/sounds/bug.mp3');
+let mainSong = new Audio('/sounds/password-infinity-12327.mp3');
 let gameOver = new Audio('/sounds/game-over.mp3');
 
 // mute button
@@ -143,9 +143,9 @@ function setup() {
 // preload  function 
 function preload() {
     bg = loadImage("img/bg-black.jpg");
-    player1 = loadImage("img/char1.png");
-    player2 = loadImage("img/char2.png");
-    player3 = loadImage("img/char5.png");
+    player1 = loadImage("img/char1.webp");
+    player2 = loadImage("img/char2.webp");
+    player3 = loadImage("img/char5.webp");
 }
 
 // draw function 
@@ -270,7 +270,7 @@ class Bug {
     this.x = random(width); // random x position within canvas width
     this.y = -50; // start off screen
     this.speed = random(3, 5); // random falling speed
-    this.img = loadImage('img/bug.png'); // load image
+    this.img = loadImage('img/bug.webp'); // load image
   }
   update() {
     this.x += random(-2, 2);
@@ -290,7 +290,7 @@ class Skill {
       this.x = random(width); // random x position within canvas width
       this.y = -50; // start off screen
       this.speed = random(1, 3); // random falling speed
-      this.img = loadImage('img/skill.png'); // load image
+      this.img = loadImage('img/skill.webp'); // load image
     }
     update() {
       this.y += this.speed; // move down screen
