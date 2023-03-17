@@ -1,12 +1,13 @@
 // setting up necessary variables  
 let bg, characterSelection, player, player1, player2, player3, canvas, x = 0, y = 0, bugs = [], bugsCount = 0, skills = [], skillsCount = 0, score = 0, count = 30, fallingSpeed = 3, scoreGoal = 100, bugFrequency = 0.02;
 
+
 // sounds 
 let skillSound = new Audio('/sounds/skill.mp3');
-let youWonSound = new Audio('/sounds/you-won.wav');
-let bugSound = new Audio('/sounds/bug1.wav');
+let youWonSound = new Audio('/sounds/you-won.mp3');
+let bugSound = new Audio('/sounds/bug1.mp3');
 let mainSong = new Audio('/sounds/password-infinity-123276.mp3');
-let gameOver = new Audio('/sounds/game-over.wav');
+let gameOver = new Audio('/sounds/game-over.mp3');
 
 // mute button
 const muteButton = document.getElementById("soundoff-button");
