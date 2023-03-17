@@ -310,7 +310,7 @@ if(score<-1 || count===0){
   noLoop();
 }
 
-if (score===scoreGoal) {
+if (score>=scoreGoal) {
   fill("#a804fc");  
   textSize(30);
   text(`
@@ -320,7 +320,7 @@ if (score===scoreGoal) {
   youWonSound.play();
   fallingSpeed +=2;
   count=30;
-  scoreGoal+=100;
+  scoreGoal+=150;
   bugFrequency+=0.01;
   bug2Frequency+=0.005;
   skill2Frequency+=0.005;
