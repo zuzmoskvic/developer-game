@@ -1,13 +1,10 @@
 // setting up necessary variables  
-let bg, characterSelection, player, player1, player2, player3, canvas, x = 0, y = 0, score = 0, count = 30, fallingSpeed = 3, scoreGoal = 100;
-let speedX, speedY;
-
+let bg, characterSelection, player, player1, player2, player3, canvas, x = 0, y = 0, score = 0, count = 30, fallingSpeed = 3, scoreGoal = 100, speedX, speedY;
 
 let bugs = [], bugsCount = 0, bugFrequency = 0.02;
 let bugs2 = [], bugs2Count = 0, bug2Frequency=0;
 let skills = [], skillsCount = 0;
 let skills2 = [], skills2Count = 0, skill2Frequency =-0.005;
-//-0.005;
 
 // sounds 
 let skillSound = new Audio('/sounds/skill.mp3');
@@ -44,9 +41,8 @@ const buttons = document.getElementById("buttons-div");
 buttons.style.display="none";
 
 // set up of the 3 character selection buttons 
-const player1btn = document.getElementById("player1");
-player1btn.onclick = function(){
-  player = player1;
+function setPlayer(selectedPlayer){
+  player = selectedPlayer;
   introScreen.style.display = "none";
   buttons.style.display="flex";
   screenshottext.style.display="block";
@@ -57,39 +53,18 @@ player1btn.onclick = function(){
   mainSong.play();
   mainSong.loop = true;
   mainSong.volume = 0.2;
-};
+}
+
+const player1btn = document.getElementById("player1");
+player1btn.onclick = function(){setPlayer(player1)};
 
 const player2btn = document.getElementById("player2");
-player2btn.onclick = function(){
-  player = player2;
-  introScreen.style.display = "none";
-  buttons.style.display="flex";
-  screenshottext.style.display="block";
-  canvas.show();
-  loop();
-  counterInterval = setInterval(counter, 1000);
-  // play main song
-  mainSong.play();
-  mainSong.loop = true;
-  mainSong.volume = 0.2;
-};
+player2btn.onclick = function(){setPlayer(player2)};
 
 const player3btn = document.getElementById("player3");
-player3btn.onclick = function(){
-  player = player3;
-  introScreen.style.display = "none";
-  buttons.style.display="flex";
-  screenshottext.style.display="block";
-  canvas.show();
-  loop();
-  counterInterval = setInterval(counter, 1000);
-  // play main song
-  mainSong.play();
-  mainSong.loop = true;
-  mainSong.volume = 0.2;
-};
+player3btn.onclick = function(){setPlayer(player3)};
 
-// new game button 
+// new game button & resetting the game 
 const newGame = document.getElementById("new-game-button");
 newGame.onclick = function(){
   if (player === undefined) 
@@ -101,12 +76,10 @@ newGame.onclick = function(){
         score=0;
         count=30;
         scoreGoal = 100;
-        
         fill(255,255,255);
-        // reset char position
+        // reset bugs and skills , char position
         x = 0;
         y = 0;
-        // reset bugs and skills  
         fallingSpeed = 3;
         bugs = [];
         bugs2 = [];
@@ -139,7 +112,6 @@ let counter = function() {
 function setup() {
     canvas = createCanvas(1000,601);
     canvas.hide();
-    //canvas.show();
     textSize(width/30);
     fill(255,255,255);
     textFont('Andale Mono');
@@ -169,7 +141,7 @@ function draw() {
     image(player3, 30 + x, 450 +y, 50,150);
   }
 
-  if (random(1) < bugFrequency) { //  frequency 
+  if (random(1) < bugFrequency) {  
         let obs = new Bug();
         bugs.push(obs);
       }
@@ -184,7 +156,7 @@ function draw() {
         }
   }
 
-  if (random(1) < bug2Frequency) { //  frequency 
+  if (random(1) < bug2Frequency) { 
         let obs = new Bug2();
         bugs2.push(obs);
   }
@@ -193,13 +165,12 @@ function draw() {
   for (let i = bugs2.length - 1; i >= 0; i--) {
         bugs2[i].update(fallingSpeed);
         bugs2[i].draw();
-        // remove bug if it's off screen
         if (bugs2[i].offScreen()) {
           bugs2.splice(i, 1);
         }
   }
 
-  if (random(1) < 0.02) { //  frequency 
+  if (random(1) < 0.02) { 
         let skill = new Skill();
         skills.push(skill);
   }
@@ -208,14 +179,13 @@ function draw() {
   for (let i = skills.length - 1; i >= 0; i--) {
         skills[i].update();
         skills[i].draw();
-        // remove skills if it's off screen
         if (skills[i].offScreen()) {
             skills.splice(i, 1);
         }
   }
 
   // skills2
-  if (random(1) < skill2Frequency) { //  frequency 
+  if (random(1) < skill2Frequency) { 
         let skill = new Skill2();
         skills2.push(skill);
   }
@@ -224,7 +194,6 @@ function draw() {
   for (let i = skills2.length - 1; i >= 0; i--) {
         skills2[i].update();
         skills2[i].draw();
-        // remove skills if it's off screen
         if (skills2[i].offScreen()) {
             skills2.splice(i, 1);
         }
