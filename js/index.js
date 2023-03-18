@@ -230,69 +230,29 @@ function draw() {
         }
   }
 
-  // Check for collisions with bugs
-  for (let i = bugs.length - 1; i >= 0; i--) {
-     let obs = bugs[i];
-      if (
-        30 + x < obs.x + 50 &&
-        30 + x + 50 > obs.x &&
-        450 + y < obs.y + 50 &&
-        150 + 450 + y > obs.y 
-      ) {
-        score -= 20;
-        bugSound.play();
-        fill("#f91304");
-        bugs.splice(i, 1);
-      }
-  }
-
-    // Check for collisions with bugs2
-    for (let i = bugs2.length - 1; i >= 0; i--) {
-      let obs = bugs2[i];
-       if (
-         30 + x < obs.x + 50 &&
-         30 + x + 50 > obs.x &&
-         450 + y < obs.y + 50 &&
-         150 + 450 + y > obs.y 
-       ) {
-         score -= 50;
-         bugSound.play();
-         fill("#f91304");
-         bugs2.splice(i, 1);
-       }
-  }
-
-  // Check for collisions with skills
-  for (let i = skills.length - 1; i >= 0; i--) {
-    let skill = skills[i];
+// set up a general collission function 
+function collission(objectArray, x, y, scoreUpdate, sound, fillcolor){
+  for (let i = objectArray.length-1; i>=0;i--) {
+    let obj = objectArray[i];
     if (
-      30 + x < skill.x + 50 &&
-      30 + x + 50 > skill.x &&
-      450 + y < skill.y + 50 &&
-      150 + 450 + y > skill.y 
+      30 + x < obj.x + 50 &&
+      30 + x + 50 > obj.x &&
+      450 + y < obj.y + 50 &&
+      150 + 450 + y > obj.y 
     ) {
-      score += 10;
-      skillSound.play();
-      fill("#17fd9e");
-      skills.splice(i, 1)
+      score += scoreUpdate;
+      sound.play();
+      fill(fillcolor);
+      objectArray.splice(i, 1);
     }
   }
+}
 
-  // Check for collisions with skills2
-  for (let i = skills2.length - 1; i >= 0; i--) {
-    let skill = skills2[i];
-    if (
-      30 + x < skill.x + 50 &&
-      30 + x + 50 > skill.x &&
-      450 + y < skill.y + 50 &&
-      150 + 450 + y > skill.y 
-    ) {
-      score += 50;
-      skillSound.play();
-      fill("#17fd9e");
-      skills2.splice(i, 1)
-    }
-  }
+// call collission function for each bug and skill type 
+collission(bugs, x, y, -20, bugSound, "#f91304");
+collission(bugs2, x, y, -50, bugSound, "#f91304");
+collission(skills, x, y, 10, skillSound, "#17fd9e");
+collission(skills2, x, y, 50, skillSound, "#17fd9e");
 
 // Update score
 textSize(25);
@@ -319,17 +279,19 @@ if (score>=scoreGoal) {
   ██▄█ █▄┼ ┼█┼ ┼█┼ ┼┼ █┼┼ █▄┼ ███ █▄┼ █┼┼
   █┼██ █▄▄ █┼█ ┼█┼ ┼┼ █▄█ █▄▄ ┼█┼ █▄▄ █▄█`, 80, 220);
   youWonSound.play();
-  fallingSpeed +=2;
-  count=30;
-  scoreGoal+=150;
-  bugFrequency+=0.01;
-  bug2Frequency+=0.005;
-  skill2Frequency+=0.005;
+  // making the game harder for next level: 
+    fallingSpeed +=2;
+    count=30;
+    scoreGoal+=150;
+    bugFrequency+=0.01;
+    bug2Frequency+=0.005;
+    skill2Frequency+=0.005;
   noLoop();
   setTimeout(loop,2000);
 }
 }
 
+// setting up the classes for bugs & skills 
 class FallingObject {
   constructor(imgPath){
     this.x = random(width); 
@@ -388,7 +350,7 @@ class Skill2 extends FallingObject {
   }
 }
 
-// keypress function  
+// setting up controls for the player   
 function keyPressed() {
     if (keyCode === RIGHT_ARROW && x < 905) {
         x += 40;   
@@ -404,7 +366,7 @@ function keyPressed() {
     }
 }
  
-// screenshot
+// setting up the screenshot functionality 
 const takeScreenshot = document.getElementById("screenshot");
 takeScreenshot.onclick = function(){
   saveCanvas(canvas, 'myHighScore', 'jpg');
