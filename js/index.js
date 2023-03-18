@@ -1,5 +1,6 @@
 // setting up necessary variables  
 let bg, characterSelection, player, player1, player2, player3, canvas, x = 0, y = 0, score = 0, count = 30, fallingSpeed = 3, scoreGoal = 100;
+let speedX, speedY;
 
 
 let bugs = [], bugsCount = 0, bugFrequency = 0.02;
@@ -329,78 +330,62 @@ if (score>=scoreGoal) {
 }
 }
 
-class Bug {
-  constructor() {
-    this.x = random(width); // random x position within canvas width
-    this.y = -50; // start off screen
-    this.speed = random(3, 5); // random falling speed
-    this.img = loadImage('img/bug.webp'); // load image
+class FallingObject {
+  constructor(imgPath){
+    this.x = random(width); 
+    this.y = -50; 
+    this.img = loadImage(imgPath); 
   }
-  update() {
-    this.x += random(-2, 2);
-    this.y += random(-2, 2) + this.speed;
+  update(speedX = 0, speedY) {
+    this.x += speedX;
+    this.y += speedY;
   }
   draw() {
-    image(this.img, this.x, this.y, 50, 50); // draw image at current position
+    image(this.img, this.x, this.y, 50, 50); 
   }
   offScreen() {
-    return this.y > height; // check if bug is off bottom of screen
+    return this.y > height; 
   }
 }
 
-class Bug2 {
+class Bug extends FallingObject {
   constructor() {
-    this.x = random(width);  
-    this.y = -50;  
-    this.speed = random(3, 5);  
-    this.img = loadImage('img/bug3.webp');  
+    super('img/bug.webp'); 
+    this.speed = random(3, 5);   
   }
   update() {
-    this.x += random(-2, 2);
-    this.y += random(-2, 2) + this.speed;
-  }
-  draw() {
-    image(this.img, this.x, this.y, 50, 50);  
-  }
-  offScreen() {
-    return this.y > height;  
+    super.update(random(-2, 2), random(-2, 2) + this.speed);
   }
 }
 
-class Skill {
-    constructor() {
-      this.x = random(width); // random x position within canvas width
-      this.y = -50; // start off screen
-      this.speed = random(1, 3); // random falling speed
-      this.img = loadImage('img/skill.webp'); // load image
-    }
-    update() {
-      this.y += this.speed; // move down screen
-    }
-    draw() {
-      image(this.img, this.x, this.y, 50, 50); // draw image at current position
-    }
-    offScreen() {
-      return this.y > height; // check if bug is off bottom of screen
-    }
+class Bug2 extends FallingObject {
+  constructor() {
+    super('img/bug3.webp'); 
+    this.speed = random(3, 5);   
   }
+  update() {
+    super.update(random(-2, 2), random(-2, 2) + this.speed);
+  }
+}
 
-  class Skill2 {
-    constructor() {
-      this.x = random(width);  
-      this.y = -50;  
-      this.speed = random(1, 3);  
-      this.img = loadImage('img/skill2.webp');  
-    }
-    update() {
-      this.y += this.speed;  
-    }
-    draw() {
-      image(this.img, this.x, this.y, 50, 50);  
-    }
-    offScreen() {
-      return this.y > height;  
-    }
+class Skill extends FallingObject {
+  constructor() {
+    super('img/skill.webp'); 
+    this.speed = random(1, 3);   
+  }
+  update() {
+    super.update(0, this.speed);
+  }
+}
+
+class Skill2 extends FallingObject {
+  constructor() {
+    super('img/skill2.webp'); 
+    this.speed = random(1, 3);   
+  }
+  update() {
+    super.update(0, this.speed);
+  }
 }
 
 // keypress function  
