@@ -6,14 +6,14 @@ let bugs2 = [], bugs2Count = 0, bug2Frequency=0;
 let skills = [], skillsCount = 0;
 let skills2 = [], skills2Count = 0, skill2Frequency =-0.005;
 
-// sounds 
+// setting up sounds 
 let skillSound = new Audio('/sounds/skill.mp3');
 let youWonSound = new Audio('/sounds/you-won.mp3');
 let bugSound = new Audio('/sounds/bug.mp3');
 let mainSong = new Audio('/sounds/password-infinity-12327.mp3');
 let gameOver = new Audio('/sounds/game-over.mp3');
 
-// mute button
+// setting up mute button
 const muteButton = document.getElementById("soundoff-button");
 muteButton.onclick = function(){
   if (mainSong.volume === 0) {
@@ -33,14 +33,14 @@ muteButton.onclick = function(){
   }
 }
 
-// intro screen and bottom text set up 
+// setting intro screen and bottom text 
 const introScreen = document.getElementById("start-page-div");
 const screenshottext= document.getElementById("screenshot-text");
 screenshottext.style.display="none";
 const buttons = document.getElementById("buttons-div");
 buttons.style.display="none";
 
-// set up of the 3 character selection buttons 
+// setting up of the character selection buttons 
 function setPlayer(selectedPlayer){
   player = selectedPlayer;
   introScreen.style.display = "none";
@@ -64,7 +64,7 @@ player2btn.onclick = function(){setPlayer(player2)};
 const player3btn = document.getElementById("player3");
 player3btn.onclick = function(){setPlayer(player3)};
 
-// new game button & resetting the game 
+// setting up new game button & resetting the game 
 const newGame = document.getElementById("new-game-button");
 newGame.onclick = function(){
   if (player === undefined) 
@@ -99,7 +99,7 @@ newGame.onclick = function(){
         loop();
 }
 
-// set up the counter 
+// setting up the counter 
 let counter = function() {
   count = count - 1; 
   if (count <= 0) {
@@ -108,7 +108,7 @@ let counter = function() {
   }
 };
 
-// setup function 
+// canvas setup function 
 function setup() {
     canvas = createCanvas(1000,601);
     canvas.hide();
@@ -118,7 +118,7 @@ function setup() {
     noLoop();
 }
 
-// preload  function 
+// canvas preload  function 
 function preload() {
     bg = loadImage("img/bg-black.jpg");
     player1 = loadImage("img/char1.webp");
@@ -126,7 +126,7 @@ function preload() {
     player3 = loadImage("img/char5.webp");
 }
 
-// draw function 
+// canvas draw function 
 function draw() {
   background(220);
   image(bg, 0, 0,);
@@ -141,62 +141,24 @@ function draw() {
     image(player3, 30 + x, 450 +y, 50,150);
   }
 
-  if (random(1) < bugFrequency) {  
-        let obs = new Bug();
-        bugs.push(obs);
+  drawObjects(Bug,bugs,bugFrequency);
+  drawObjects(Bug2,bugs2,bug2Frequency);
+  drawObjects(Skill,skills,0.02);
+  drawObjects(Skill2,skills2,skill2Frequency);
+
+  function drawObjects(ObjectClass, objectArray, frequency){
+    if (random(1) < frequency) {  
+        let obj = new ObjectClass();
+        objectArray.push(obj);
       }
-
-  // update and draw existing bugs
-  for (let i = bugs.length - 1; i >= 0; i--) {
-        bugs[i].update(fallingSpeed);
-        bugs[i].draw();
+     for (let i = objectArray.length - 1; i >= 0; i--) {
+        objectArray[i].update(fallingSpeed);
+        objectArray[i].draw();
         // remove bug if it's off screen
-        if (bugs[i].offScreen()) {
-          bugs.splice(i, 1);
+        if (objectArray[i].offScreen()) {
+          objectArray.splice(i, 1);
         }
-  }
-
-  if (random(1) < bug2Frequency) { 
-        let obs = new Bug2();
-        bugs2.push(obs);
-  }
-
-  // update and draw existing bugs
-  for (let i = bugs2.length - 1; i >= 0; i--) {
-        bugs2[i].update(fallingSpeed);
-        bugs2[i].draw();
-        if (bugs2[i].offScreen()) {
-          bugs2.splice(i, 1);
-        }
-  }
-
-  if (random(1) < 0.02) { 
-        let skill = new Skill();
-        skills.push(skill);
-  }
-
-  // update and draw existing skills
-  for (let i = skills.length - 1; i >= 0; i--) {
-        skills[i].update();
-        skills[i].draw();
-        if (skills[i].offScreen()) {
-            skills.splice(i, 1);
-        }
-  }
-
-  // skills2
-  if (random(1) < skill2Frequency) { 
-        let skill = new Skill2();
-        skills2.push(skill);
-  }
-
-  // update and draw existing skills
-  for (let i = skills2.length - 1; i >= 0; i--) {
-        skills2[i].update();
-        skills2[i].draw();
-        if (skills2[i].offScreen()) {
-            skills2.splice(i, 1);
-        }
+   }
   }
 
 // set up a general collission function 
